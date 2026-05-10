@@ -22,7 +22,7 @@ Draft, in active development.
 
 ## Relationship to OWASP FIASSE
 
-[FIASSE (Framework for Integrating Application Security into Software Engineering)](docs/fiasse-rfc.md) and CVC-5 address different modes of AI-assisted work and are designed to complement, not overlap.
+[FIASSE (Framework for Integrating Application Security into Software Engineering)](https://github.com/OWASP/FIASSE) and CVC-5 address different modes of AI-assisted work and are designed to complement, not overlap.
 
 **OWASP FIASSE is creational guidance.** It directs how software engineers build securable code, AI-assisted or not. FIASSE's core model (SSEM) gives developers a design language for building software with inherent qualities like maintainability, trustworthiness, and reliability. FIASSE concerns the artifact being produced: is the code being written with properties that make it defensible and maintainable over time? When a professional engineer uses an AI copilot to generate code, FIASSE provides the engineering principles that define what "good" looks like for that output.
 
