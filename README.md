@@ -1,4 +1,4 @@
-# CVC-5: Citizen Vibe Coder Security Framework
+# CVC-5: Citizen Vibe Coder Security Model
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY%20SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
