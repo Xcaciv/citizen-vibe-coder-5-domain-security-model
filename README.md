@@ -1,5 +1,7 @@
 # CVC-5: Citizen Vibe Coder Security Framework
 
+[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY%20SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+
 This repository develops **CVC-5**, a five-domain security control model for **Citizen Vibe Coders** — non-engineers whose use of LLMs, copilots, assistants, or agents materially shapes business outputs, decisions, or operational actions.
 
 CVC-5 operates either as a **standalone baseline** for organizations without formal AI governance, or as a **domain-specific control profile** within an existing enterprise AI governance program.
