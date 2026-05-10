@@ -18,7 +18,15 @@ CVC-5 operates either as a **standalone baseline** for organizations without for
 
 ## Status
 
-Proposed baseline, in active development. Open decision points are flagged inline as `[DECISION: ...]` throughout the document.
+Draft, in active development.
+
+## Relationship to FIASSE
+
+[FIASSE (Framework for Integrating Application Security into Software Engineering)](docs/fiasse-rfc.md) and CVC-5 address different modes of the AI-assisted work and are designed to complement, not overlap.
+
+**FIASSE is creational guidance.** It directs how software engineers build securable code, AI-assisted or not. Its core model (SSEM) gives developers a design language for building software with inherent qualities like maintainability, trustworthiness, and reliability. FIASSE's concern is the artifact being produced: is the code being written with properties that make it defensible and maintainable over time? When a professional engineer uses an AI copilot to generate code, FIASSE provides the engineering principles that define what "good" looks like for that output.
+
+**CVC-5 is operational governance and guardrails.** It governs how business users — who are not engineers — operate AI tools, agents, and workflows to produce business outcomes. CVC-5's concern is not the quality of the artifact but the safety of the process: is sensitive data being handled appropriately, are agents operating within sanctioned boundaries, are outputs being reviewed before they influence decisions? CVC-5 does not require its users to understand software engineering; it requires them to follow safe operating procedures.
 
 ## Contributing
 
