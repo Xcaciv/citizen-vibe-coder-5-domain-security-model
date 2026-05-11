@@ -2,13 +2,13 @@
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY%20SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
+## Overview
+
 This repository develops **CVC-5**, a five-domain security control model for **Citizen Vibe Coders** — non-engineers whose use of LLMs, copilots, assistants, or agents materially shapes business outputs, decisions, or operational actions.
 
-CVC-5 operates either as a **standalone baseline** for organizations without formal AI governance, or as a **domain-specific control profile** within an existing enterprise AI governance program.
+CVC-5 operates either as a **standalone baseline** for organizations without formal AI governance, or as a **domain-specific control profile** within an existing enterprise AI governance program. The framework is technology- and vendor-neutral, scales control strength to business impact through a risk-tiering model, and keeps human accountability explicit at every step.
 
-## Contents
-
-- [`docs/cvc-5-security-model.md`](docs/cvc-5-security-model.md) — the working draft of the framework.
+The working draft of the framework is [`docs/cvc-5-security-model.md`](docs/cvc-5-security-model.md).
 
 ## The five domains
 
@@ -20,7 +20,7 @@ CVC-5 operates either as a **standalone baseline** for organizations without for
 
 ## Status
 
-Draft, in active development.
+Draft v0.9.1, in active development. See [Roadmap](#roadmap) for the path to a stable 1.0.
 
 ## Relationship to OWASP FIASSE
 
@@ -44,9 +44,56 @@ Written for developers and security teams building or deploying LLM applications
 Covers risks specific to autonomous agent systems: goal hijacking (ASI01), unsafe action chains (ASI02), over-permissioned tools (ASI03), and auditability gaps (ASI08). CVC-5 applies these risks to the scenario where a Citizen Vibe Coder is invoking or operating an agent — not architecting one. The control responses in CVC-3 (Prompt, Agent, and Action Safety) and CVC-5 (Governance, Audit, and Incident Readiness) operationalize the Agentic Top 10 mitigations at the business-unit level.
 A full cross-walk mapping each CVC-5 domain to its corresponding OWASP reference codes is in [Appendix A](docs/cvc-5-security-model.md#appendix-a-framework-cross-walk) of the framework document.
 
-## Contributing
+## Contribution Model
 
-Issues and pull requests refining scope, controls, threat model, or framework cross-walks (NIST AI RMF, ISO/IEC 42001, EU AI Act, OWASP LLM/Agentic/Citizen Dev) are welcome.
+CVC-5 is developed as an open, community-reviewed draft. Contributions are welcome from security practitioners, governance and risk specialists, AI/ML engineers, and citizen developers operating within the model's scope.
+
+### What we accept
+
+- **Scope refinements** — clarifying in-scope vs. out-of-scope activities, persona definitions, or boundary cases.
+- **Control additions or revisions** — proposed controls, threat-model updates, or risk-tier adjustments within any of the five domains.
+- **Framework cross-walks** — mappings to NIST AI RMF, ISO/IEC 42001, EU AI Act, OWASP LLM/Agentic/Citizen Dev, or other AI governance standards.
+- **Implementation reports** — case studies, lessons learned, or organizational adaptation notes (anonymized as needed).
+- **Editorial improvements** — clarity, consistency, terminology, and accessibility.
+
+### How to contribute
+
+1. For typo or wording fixes, open a direct PR against [`docs/cvc-5-security-model.md`](docs/cvc-5-security-model.md).
+2. For control, scope, or structural changes, open an issue first to discuss intent and fit before sending a PR.
+3. Match the existing structure, tone, and `[Standalone]` / `[Plug-in]` tagging conventions used in the framework document.
+4. Keep PRs focused — one change of substance per PR makes review and provenance cleaner.
+
+### Review and merge
+
+- Editorial PRs are merged at maintainer discretion.
+- Control-model and scope PRs require issue discussion and explicit maintainer sign-off.
+- Substantive structural changes may be deferred to a numbered release cycle to keep the draft stable for reviewers.
+- All contributions are accepted under the project license (CC-BY-SA-4.0); contributors retain attribution.
+
+## Roadmap
+
+The roadmap below tracks the working draft toward a stable 1.0 release and the enablement work that follows. Item ordering reflects priority, not commitment to specific dates.
+
+### Toward v1.0
+
+- Complete control descriptions and acceptance criteria across all five domains.
+- Finalize the risk-tiering model and the thresholds that trigger each tier.
+- Stabilize Appendix A cross-walks (NIST AI RMF, ISO/IEC 42001, EU AI Act, OWASP LLM/Agentic/Citizen Dev).
+- External review by security, governance, audit, and citizen-developer practitioners.
+- Resolve open editorial inconsistencies and tighten persona examples and worked scenarios.
+
+### Post-1.0 enablement
+
+- Implementation guide and quick-start templates for `[Standalone]` adopters.
+- Integration notes and reference artifacts for `[Plug-in]` adoption alongside existing enterprise AI governance.
+- Reference policies, registration forms, and intake templates supporting CVC-1.
+- Lightweight self-assessment checklist tied to the five domains and risk tiers.
+
+### Not planned
+
+- Tooling, scanners, or automated compliance products.
+- Vendor- or product-specific configuration guides.
+- Certification, attestation, or conformance schemes.
 
 ## License
 
