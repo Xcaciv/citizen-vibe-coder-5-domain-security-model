@@ -1,117 +1,95 @@
-# CVC-5: Citizen Vibe Coder Security Framework
+# The Plain‑Language Guide to CVC-5: Citizen Vibe Coder Security Framework
 
-**Type:** Security control standard
+**Type:** Security control standard companion
 **Status:** Draft v0.9.1
 **Date:** May 7, 2026
+**Companion document:** [cvc-5-security-model.md](cvc-5-security-model.md) (normative)
 
-***
+---
 
-## How to Use This Document
+## Why This Framework Exists
 
-This framework serves two audiences. Find your path before reading further.
+A challenge in mid-to-large organizations is that business work is increasingly shaped by AI tools wielded by non-engineers. A finance manager asks an LLM to reconcile a vendor balance and pastes the answer into a board pack. An HR partner sets up an agent that drafts and sends termination communications. A compliance analyst uses a retrieval-augmented assistant to summarize regulatory obligations, then attaches the summary to an audit response. None of these people are developers. None of their workflows pass through the SDLC controls that the security function has spent a decade refining. None of these people are developers, yet each shapes a business outcome.
 
-**Path A — Your organization already has an AI governance program:**
-CVC-5 is a domain-specific control profile for business-led AI use. Start at [Section 4: Governance Positioning](#4-governance-positioning) to understand how CVC-5 plugs in, then go to [Section 6: The CVC-5 Control Model](#6-the-cvc-5-control-model) for control details. Ignore "Standalone" tags.
+Some teams recognize this shift but misunderstand its scope. They reach for prohibition lists or extended secure-coding standards, but both are insufficient. The first drives use into shadow channels without reducing risk. The second mistakes the form (prompts, code, output) for the substance (a human making a business decision through a probabilistic intermediary). What's needed is a control system focused on the user who treats AI as an extension of their work, not the engineer who treats AI as an input to a product.
 
-**Path B — No formal AI governance exists yet:**
-CVC-5 is your initial control structure. Start at [Section 8: Minimum Starting Baseline](#8-minimum-starting-baseline) to get oriented, then return to [Section 6: The CVC-5 Control Model](#6-the-cvc-5-control-model). Pay attention to "Standalone" tags. Commit to refactoring CVC-5 into a plug-in profile once enterprise governance is established.
+CVC-5 is that control system. It defines five domains of control over business-led AI use, organized around outcomes rather than implementation form. It operates as a standalone baseline where no enterprise AI governance exists, and as a domain-specific control profile where one does. The normative statements, RFC 2119 keywords, applicability matrices, and full control catalog live in the companion [security model document](cvc-5-security-model.md). This narrative version is intended for people who need to internalize the framework before they apply it.
 
-> **Key terms used throughout this document:**
->
-> - **Citizen Vibe Coder** — a non-engineer whose use of LLMs, copilots, assistants, or agents materially shapes business outputs, decisions, or operational actions.
-> - **Material work** — work output that influences business outcomes to a degree warranting management attention if an error or harm occurs.
-> - **Shadow AI** — AI tools, assistants, agents, or workflows not registered, approved, or visible to security and governance functions.
-> - **Least agency** — granting an agent the minimum autonomy, tools, and action scope required for its function; broader autonomy is earned, not default.
->
-> *Full definitions in [Appendix B](#appendix-b-definitions).*
+---
 
-***
+## How to Read This Document
 
-## 1. Purpose
+There are two reading paths, and the right one depends on what already exists in the organization.
 
-CVC-5 is a five-domain security control model for business users who perform material work via LLMs, AI assistants, copilots, or agentic workflows (Citizen Vibe Coders). It operates as a standalone baseline or as a domain-specific control profile within a broader enterprise AI governance program.
+### Path A — An enterprise AI governance program is in place
 
-***
+In this case, CVC-5 plugs into that program as a domain-specific control profile covering business-led AI use. The most useful starting point is the [governance positioning section of the normative model](cvc-5-security-model.md#4-governance-positioning), followed by the [control catalog](cvc-5-security-model.md#7-cvc-5-control-catalog-normative). The `[Standalone]` tags can be ignored; the `[Plug-in]` behaviors are what apply.
 
-## 2. Scope
+### Path B — No formal AI governance exists yet
 
-### In scope
+Here, CVC-5 serves as the first formal structure. Begin with the minimum starting baseline described later in this document, then return to the [control catalog](cvc-5-security-model.md#7-cvc-5-control-catalog-normative). Pay attention to the `[Standalone]` tags — they describe what CVC-5 must do for itself in the absence of broader structures. There should also be an explicit commitment to refactor CVC-5 into a plug-in profile once enterprise governance is established. This is important: CVC-5 is meant to be a useful starting point, not a permanent island.
 
-- Drafting analyses, recommendations, summaries, decisions, or policies via AI that influence business outcomes
-- Operating embedded AI assistants in enterprise SaaS to generate outputs or initiate actions
-- Moving AI-produced content into tickets, emails, reports, spreadsheets, forms, or procedures
-- Running LLM-driven workflows that retrieve documents, call tools/APIs, or produce downstream effects
-- Producing scripts, formulas, queries, or automations as incidental artifacts of LLM-mediated processes
-- Building or invoking custom agents, GPTs, retrieval pipelines, or MCP integrations under business-unit ownership
+Four terms recur throughout. A **Citizen Vibe Coder** is a non-engineer whose use of LLMs, copilots, assistants, or agents materially shapes business outputs, decisions, or operational actions. **Material work** is work output that influences business outcomes to a degree warranting management attention if an error or harm occurs. **Shadow AI** refers to tools, assistants, agents, or workflows not registered, approved, or visible to security and governance functions. **Least agency** is the agentic analog of least privilege: granting an agent only the minimum autonomy, tools, and action scope required for its function. Full definitions are in [Appendix B of the normative model](cvc-5-security-model.md#appendix-b-definitions).
 
-Code generation is not required for a workflow to be in scope.
+---
 
-### Out of scope
+## What Falls Inside the Framework
 
-- Professional software development lifecycle and engineering security controls
-- Low-code/no-code platform administration
-- Model development, fine-tuning, dataset curation, or MLOps
-- Enterprise AI strategy, ethics, vendor management, and contract review owned by other functions
+The boundary of CVC-5 is drawn around *who is doing the work* and *what the work shapes*, not around the technology being used. Drafting analyses, recommendations, summaries, decisions, or policies via AI is in scope when those outputs influence business outcomes. Operating embedded AI assistants inside enterprise SaaS is in scope when those assistants generate outputs or initiate actions.
+ Moving AI-produced content into tickets, emails, reports, spreadsheets, forms, or procedures is in scope. So is running LLM-driven workflows that retrieve documents, call tools or APIs, or produce downstream effects, and so is building or invoking custom agents, GPTs, retrieval pipelines, or MCP integrations under business-unit ownership.
 
-***
+Notably, code generation is not required for a workflow to be in scope. A finance analyst who never writes a line of Python but produces forecasts through a retrieval-augmented assistant is doing citizen vibe coding in the sense that matters here. If their output shapes a material decision, the controls apply.
 
-## 3. Design Principles
+What is not in scope is the professional software development lifecycle and its engineering security controls, low-code and no-code platform administration, model development and MLOps, and the enterprise AI strategy, ethics, vendor management, and contract review functions that other parts of the organization own.
+ These are adjacent disciplines and should remain so. CVC-5 is deliberately narrow.
 
-1. **Standalone yet composable.** Operates as a complete minimum viable control system without enterprise AI governance; each control maps to existing enterprise capabilities.
-2. **Technology and vendor neutral.** Applies regardless of AI product, vendor, deployment model, or interaction modality.
-3. **Outcome focus.** Targets risk-creating outcomes, not implementation form. Code production is not the determining factor.
-4. **Explicit human accountability.** A human remains accountable for inputs, configuration, outputs, and resulting actions. AI assistance does not transfer ownership.
-5. **Secure enablement.** Approved patterns must be easier than shadow patterns. Prohibition must be specific, narrow, and accompanied by a sanctioned alternative.
-6. **Risk proportionality.** Control strength scales with business impact via the risk tiering model.
+---
 
-***
+## Design Principles
 
-## 4. Governance Positioning
+The framework is built on six principles, each of which is reflected in specific control choices later.
 
-> **`[Plug-in]`** — Relevant when enterprise AI governance already exists.
-> **`[Standalone]`** — Relevant when CVC-5 is the first formal structure.
+### Standalone yet composable
 
-### `[Plug-in]` Integration with Enterprise Governance
+CVC-5 must function as a complete minimum viable control system when nothing else exists, while every individual control maps cleanly onto existing enterprise capabilities when they do.
 
-CVC-5 is a domain-specific control profile for business-led AI use. It translates enterprise policy into operational controls; it does not form a parallel reporting chain.
+### Technology and vendor neutral
 
-| Enterprise layer | CVC-5 contribution |
-|---|---|
-| AI policy and acceptable use | Discoverable, machine-readable guardrails; registration and review triggers |
-| Data governance and privacy | Applies data rules to prompts, uploads, retrieval, embeddings, agent memory |
-| Identity and access management | Least-privilege inheritance, scoped tokens, approval boundaries |
-| Vendor and third-party risk | Inventory and use-case detail for meaningful third-party AI risk evaluation |
-| Security operations | Logging, alerting, and incident categories for AI-assisted actions and shadow AI |
-| Internal audit and compliance | Provenance records, approvals, and traceability for material AI outputs |
+The framework applies regardless of AI product, vendor, deployment model, or interaction modality. A control that hinges on "what OpenAI does" or "what Microsoft does" will not survive a market this volatile.
 
-| Condition | CVC-5 behavior |
-|---|---|
-| Existing governance is stricter | Existing requirements prevail without modification. |
-| Existing governance is silent on AI prompts, agents, or business-side workflows | CVC-5 fills the control gap. |
-| Exceptions and escalations | Flow through existing governance bodies. |
-| Metrics | Feed upward into enterprise governance reporting; do not form a parallel chain. |
+### Outcome focus
 
-Position CVC-5 explicitly as a domain-specific control profile for citizen vibe coding under the broader enterprise AI control system.
+Controls target the risk-creating outcome, not the implementation form. Whether the AI produces prose, a spreadsheet formula, or a tool call, the question is whether that output materially influences a business outcome.
 
-### `[Standalone]` First-Formal-Structure Commitments
+### Explicit human accountability
 
-When no enterprise governance exists, CVC-5 serves as the initial control structure. Required commitments:
+A human remains accountable for inputs, configurations, outputs, and resulting actions. AI assistance does not transfer ownership. This principle is the foundation of CVC-4.
 
-- Present as a security and operational control standard, not AI strategy or enterprise policy.
-- Document decisions in a form inheritable by future governance bodies.
-- Review annually; refactor to plug-in profile once enterprise governance is established.
+### Secure Enablement
 
-### Framework Alignment
+Approved patterns must be easier to use than shadow patterns. A prohibition is only defensible when it's specific, narrow, and accompanied by a sanctioned alternative. Prohibitions without alternatives create shadow AI; they don't prevent it.
 
-*For compliance officer reference — see [Appendix A: Framework Cross-Walk](#appendix-a-framework-cross-walk) for full mapping.*
+### Risk Proportionality
 
-CVC-5 contributes to NIST AI RMF 1.0 Map, Measure, and Manage functions; maps to ISO/IEC 42001:2023 Clause 4 and Annex A; and supports EU AI Act Article 26 deployer compliance evidence.
+Control strength scales with business impact through the risk tiering model. Treating every prompt as Tier 3 creates friction without security gain; treating every Tier 3 use as Tier 1 produces the opposite problem.
 
-***
+---
 
-## 5. Threat Model
+## Governance Positioning
 
-> **Note:** Taxonomy reference codes (OWASP LLM Top 10, Agentic Top 10, Citizen Dev Top 10) are retained in [Appendix A: Framework Cross-Walk](#appendix-a-framework-cross-walk) for specialist cross-reference.
+CVC-5 is designed to operate in two modes, and the difference between them is significant enough to address directly. The full positioning logic is in [Section 4 of the normative model](cvc-5-security-model.md#4-governance-positioning).
+
+When enterprise AI governance exists, CVC-5 is a domain-specific control profile underneath it. The framework translates enterprise policy into operational controls for business-led AI use; it doesn't create a parallel reporting chain. Where existing governance is stricter, existing requirements prevail. Where existing governance is silent on AI prompts, agents, or business-side workflows, CVC-5 fills the gap. Exceptions and escalations flow through existing governance bodies. Metrics feed upward. Integration points across AI policy, data governance, identity, vendor risk, security operations, and audit are detailed in the normative model.
+
+When no enterprise governance exists, CVC-5 is the initial structure. Three commitments matter here. First, it should be presented as a security and operational control standard, not as AI strategy or enterprise policy. Second, decisions should be documented in a form inheritable by future governance bodies. Third, the framework should be reviewed annually and refactored into a plug-in profile once enterprise governance is established.
+
+For compliance officers and audit functions, CVC-5 contributes to the NIST AI RMF 1.0 Map, Measure, and Manage functions; maps to ISO/IEC 42001:2023 Clause 4 and Annex A; and supports EU AI Act Article 26 deployer compliance evidence. The full cross-walk is in [Appendix A of the normative model](cvc-5-security-model.md#appendix-a-framework-cross-walk).
+
+---
+
+## Threat Model
+
+The threats CVC-5 addresses fall into a recognizable cluster. Specialist taxonomy codes — OWASP LLM Top 10, Agentic Top 10, Citizen Dev Top 10 — are retained in the [framework cross-walk](cvc-5-security-model.md#appendix-a-framework-cross-walk) for those who need them.
 
 | Risk | Description |
 |---|---|
@@ -128,22 +106,15 @@ CVC-5 contributes to NIST AI RMF 1.0 Map, Measure, and Manage functions; maps to
 | Blind trust | Users over-trust AI output or generated actions without independent review |
 | Supply-chain / component risk | Compromised models, tools, or MCP servers introduce malicious behavior |
 
-**Key assumptions driving this framework:**
+Three assumptions drive how the framework engages these risks. First, prompt injection cannot be reliably prevented at the model layer; CVC-5 treats it as a containment problem, not a prevention problem, which is why the strongest controls in [CVC-3](cvc-5-security-model.md#cvc-3-prompt-agent-and-action-safety) target action gating rather than input sanitization. Second, business users have legitimate role-appropriate system access; AI tools don't change the access-control model but they do change what is retrievable in practice. Third, visibility into AI activity is incomplete by default, and the controls must function under partial visibility. A framework that depends on perfect telemetry will fail the moment a new tool reaches general availability.
 
-- Prompt injection cannot be reliably prevented at the model layer. The framework treats it as a containment problem, not a prevention problem.
-- Business users have legitimate role-appropriate system access; AI tools extend what data is retrievable in practice even when access-control models are unchanged.
-- Visibility into AI activity is incomplete by default. Controls must function under partial visibility.
+---
 
-***
+## Risk Tiering
 
-## 6. Risk Tiering Model
+CVC-5 applies three risk tiers, and every control in the catalog names the tiers for which it is required and the tiers for which it is recommended. The full tier model lives in [Section 6 of the normative model](cvc-5-security-model.md#6-risk-tiering-model).
 
-> **Organization-defined threshold.** The Tier 1 registration threshold must be set by each organization and re-evaluated at least annually. Determine your threshold by answering two questions:
->
-> 1. At what frequency or business impact does unregistered use create unacceptable visibility gaps? (e.g., any recurring use, any use producing outputs shared beyond the originating team)
-> 2. Is tier classification based on the user's intent at the time of use, or on how the output is ultimately used downstream? Downstream use is the more defensible standard — classify by the most sensitive use the output could reasonably reach.
->
-> Document your threshold decision, the date it was set, and the next scheduled review date.
+The most important decision in implementing CVC-5 is how to classify use cases into tiers. There are two adjacent questions an organization must answer, and the answers should be documented with their decision date and a review date no more than a year out. The first question is: at what frequency or business impact does unregistered use create unacceptable visibility gaps? The second is: should tier classification be based on the user's intent at time of use, or on how the output is ultimately used downstream? Downstream use is the more defensible standard. Classify by the most sensitive use the output could reasonably reach. A draft framed as "personal thinking only" that ends up pasted into a board memo was never really Tier 1.
 
 | Tier | Typical characteristics | Minimum control expectation |
 |---|---|---|
@@ -151,247 +122,195 @@ CVC-5 contributes to NIST AI RMF 1.0 Map, Measure, and Manage functions; maps to
 | Tier 2: Moderate | Internal data; recurring use; business analysis or decision support; outputs influence operations but do not directly trigger action. | Registration required; approved tools only; output review required for material use. |
 | Tier 3: High | Sensitive or regulated data; external communication; tool-calling or record changes; HR, legal, financial, or compliance impact; agentic execution of business-meaningful actions. | Registration with named owner; approved enterprise environment; explicit confirmation gates for action; logging, review, and provenance mandatory. |
 
-***
+---
 
-## 7. The CVC-5 Control Model
+## The Five Control Domains
 
-Controls are tagged `[Plug-in]` where behavior differs when enterprise AI governance exists, and `[Standalone]` where the control must be self-contained.
+A narrative walk through each of the five domains follows. Specific normative statements, applicability by tier, and primary-risk mappings live in the [control catalog](cvc-5-security-model.md#7-cvc-5-control-catalog-normative). A practical self-assessment checklist that captures Required and Recommended status per tier is in [Appendix C of the normative model](cvc-5-security-model.md#appendix-c-self-assessment-checklist).
 
-***
+### CVC-1: Discovery and Registration
 
-### CVC-1. Discovery and Registration
+The objective of this domain is to convert unknown AI use into known AI use. Everything else in the framework hinges on it.
 
-**Objective:** Convert unknown AI use into known AI use.
+#### Approach
 
-**Required controls:**
+The first step is to maintain an AI tool classification register with at least three statuses: approved for sensitive work, approved for limited use, and prohibited for corporate data. This register is the organization's authoritative answer to whether a given tool may be used and for what purpose. It's operationalized by [CVC-1.1](cvc-5-security-model.md#cvc-1-discovery-and-registration) and required for every tier.
 
-- Maintain an AI tool classification register with statuses: *approved for sensitive work*, *approved for limited use*, *prohibited for corporate data*.
-- Register all recurring or material business use of LLMs, copilots, assistants, agents, custom GPTs, and MCP-connected workflows with a designated human owner.
-- Each registered use case must record: owning team, business purpose, data classes involved, connected tools/data sources, output type, whether automated actions occur, and human review level applied.
-- Discovery mechanisms must combine self-attestation, network/identity telemetry, periodic business-unit reviews, and reconciliation against the sanctioned-tool register.
-- Where automated discovery is feasible, express the resulting record as an AI-BOM (SPDX 3.0 or CycloneDX), capturing models, datasets, prompts, system prompts, embeddings, vector stores, MCP servers, and tool integrations.
+Recurring or material business use of LLMs, copilots, assistants, agents, custom GPTs, and MCP-connected workflows must be registered with a designated human owner, as outlined in [CVC-1.2](cvc-5-security-model.md#cvc-1-discovery-and-registration). Each registered use case carries a defined metadata schema covering owning team, business purpose, data classes involved, connected tools and data sources, output type, whether automated actions occur, and the level of human review applied, as described in [CVC-1.3](cvc-5-security-model.md#cvc-1-discovery-and-registration). This is [CVC-1.3](cvc-5-security-model.md#cvc-1-discovery-and-registration), and the discipline of populating it well is what separates a real inventory from a spreadsheet that decays in six months.
 
-`[Plug-in]` Feed the use-case inventory and AI-BOM into the enterprise AI governance register. Do not maintain a parallel inventory.
+Discovery itself cannot rely on a single mechanism. [CVC-1.4](cvc-5-security-model.md#cvc-1-discovery-and-registration) requires combining self-attestation, network and identity telemetry, periodic business-unit reviews, and reconciliation against the sanctioned-tool register. Where automated discovery is feasible, the resulting record should be expressed as an AI-BOM in SPDX 3.0 or CycloneDX format, capturing models, datasets, prompts, system prompts, embeddings, vector stores, MCP servers, and tool integrations, as outlined in [CVC-1.5](cvc-5-security-model.md#cvc-1-discovery-and-registration), required for Tier 3 where supported.
 
-`[Standalone]` The use-case inventory is the authoritative organizational record until enterprise governance is established. Assign a named maintainer.
+#### Where the modes diverge
 
-***
+Under `[Plug-in]`, the use-case inventory and AI-BOM feed into the enterprise AI governance register; a parallel inventory must not be maintained. Under `[Standalone]`, the inventory itself is the authoritative organizational record until enterprise governance is established, with a named maintainer. The full statement is in [CVC-1.6](cvc-5-security-model.md#cvc-1-discovery-and-registration).
 
-### CVC-2. Data Boundary Protection
+### CVC-2: Data Boundary Protection
 
-**Objective:** Prevent inappropriate disclosure of sensitive data into AI systems; constrain what AI systems can retrieve, expose, or carry across boundaries.
+The objective here is to prevent the inappropriate disclosure of sensitive data into AI systems and to constrain what AI systems can retrieve, expose, or carry across boundaries. This is the domain most likely to be misunderstood as "the same DLP problem we already have," and it is not.
 
-**Required controls:**
+#### Approach
 
-- Extend enterprise data classification to AI usage with explicit rules for prompts, file uploads, retrieval content, embedded indexes, copied context, and downstream responses.
-- Prohibit submission of high-sensitivity data to public or consumer AI tools without a documented exception.
-- Require approved enterprise AI environments for any use of internal sensitive, regulated, or business-confidential data.
-- Enforce least privilege on connectors, plugins, and tools accessible to AI assistants; use short-lived credentials where supported.
-- Deploy preventive or detective controls for obvious leakage patterns (secrets, PCI data, PHI) where technically feasible.
-- Enforce access controls on vector stores and retrieval indexes equivalent to those on the underlying source data.
+Existing data classification must be extended to AI usage with explicit rules for prompts, file uploads, retrieval content, embedded indexes, copied context, and downstream responses, as outlined in [CVC-2.1](cvc-5-security-model.md#cvc-2-data-boundary-protection). This is [CVC-2.1](cvc-5-security-model.md#cvc-2-data-boundary-protection). The reason classification cannot simply be carried forward unchanged is that AI tools alter the practical retrievability of data.
+ A user who has legitimate access to a SharePoint site under access-control models that have not changed can, through a retrieval-augmented assistant, surface and synthesize content from that site at a scale and speed that no individual reading session would have produced. The access decision is identical. The exposure profile is not.
 
-`[Standalone]` If no enterprise data classification scheme exists, establish a minimum three-tier classification (public / internal / restricted) as a prerequisite to this control.
+Use of internal sensitive, regulated, or business-confidential data must occur within an approved enterprise AI environment, per [CVC-2.3](cvc-5-security-model.md#cvc-2-data-boundary-protection). Connectors, plugins, and tools accessible to AI assistants must operate under least privilege with short-lived credentials where supported, as outlined in [CVC-2.4](cvc-5-security-model.md#cvc-2-data-boundary-protection). Use of internal sensitive, regulated, or business-confidential data must occur within an approved enterprise AI environment, per [CVC-2.3](cvc-5-security-model.md#cvc-2-data-boundary-protection). Vector stores and retrieval indexes must enforce access controls equivalent to those on the underlying source data, which is [CVC-2.6](cvc-5-security-model.md#cvc-2-data-boundary-protection) and is the single control most often missing from RAG deployments observed in practice.
 
-> **Prohibition model: category-based with an accompanying allowlist.** Prohibit by category (e.g., "public consumer AI tools," "personal AI accounts not provisioned by IT") rather than by named product. Maintain a separately governed allowlist of approved tools. This separates the stable policy (the prohibition) from the frequently updated operational list (the allowlist), reducing policy churn as the market evolves. The allowlist owner and review cadence must be explicitly assigned.
+#### A note on prohibition structure
 
-***
+Prohibitions should be expressed by *category* (for example, "public consumer AI tools" or "personal AI accounts not provisioned by IT") rather than by named product. A separately governed allowlist of approved tools should exist alongside the category prohibition, with an explicitly assigned owner and a documented review cadence, as stated in [CVC-2.7](cvc-5-security-model.md#cvc-2-data-boundary-protection).
+ This is [CVC-2.7](cvc-5-security-model.md#cvc-2-data-boundary-protection), and the rationale matters: the category-level prohibition is a stable policy artifact that changes infrequently, while the allowlist is an operational artifact that turns over as the market evolves. Separating them keeps policy churn low and shortens the path to approving new tools without rewriting prohibitions every quarter.
 
-### CVC-3. Prompt, Agent, and Action Safety
+#### Where the modes diverge
 
-**Objective:** Prevent AI systems from following malicious instructions, exceeding authority, or performing unsafe actions.
+Under `[Standalone]`, if no enterprise data classification scheme exists, a minimum three-tier classification (public / internal / restricted) must be established as a prerequisite to applying CVC-2.1 through CVC-2.6, as outlined in [CVC-2.8](cvc-5-security-model.md#cvc-2-data-boundary-protection).
 
-**Required controls:**
+### CVC-3: Prompt, Agent, and Action Safety
 
-- Treat external content processed by AI systems (emails, attachments, web pages, documents, transcripts, meeting recordings) as untrusted.
-- Business-critical workflows must use prompt/system-instruction patterns that separate untrusted content from operating instructions and refuse to follow embedded directives without user confirmation.
-- AI-connected tools and agents must default to read-only access.
-- Require explicit human confirmation — captured outside the AI chat surface — for any action that sends data externally, modifies records, changes entitlements, transfers funds, or produces material outcomes.
-- Define and enforce forbidden autonomous-action categories: employment status changes, payment approvals, contract execution, access provisioning, regulated communications.
-- Each agent must operate under its own non-human identity with scoped credentials and short-lived tokens.
-- Apply least agency to all decisions granting new tools, broader scopes, or auto-approval permissions.
+This domain consumes the most attention when the framework is first introduced, and rightly so. Its objective is to prevent AI systems from following malicious instructions, exceeding their authority, or performing unsafe actions.
 
-`[Plug-in]` Where AI governance / AI-gateway capabilities are available, apply prompt-injection detection, output policy enforcement, rate and budget limits, and egress allowlisting to business-critical workflows.
+#### Approach
 
-`[Standalone]` In the absence of an AI gateway, apply compensating controls: manual workflow checklists for Tier 3 actions, peer confirmation for high-risk outputs, and documented review records.
+The foundational stance is that external content processed by AI systems — emails, attachments, web pages, documents, transcripts, meeting recordings — must be treated as untrusted input, as stated in [CVC-3.1](cvc-5-security-model.md#cvc-3-prompt-agent-and-action-safety). Following from that, business-critical workflows must use prompt and system-instruction patterns that separate untrusted content from operating instructions and refuse to follow embedded directives without explicit user confirmation, as outlined in [CVC-3.2](cvc-5-security-model.md#cvc-3-prompt-agent-and-action-safety).
 
-> **Organization-defined list ownership.** Each organization must assign an owner for the forbidden autonomous-action categories list and define a change-control process. For fast-moving environments where new agent capabilities emerge frequently, the recommended model is: a single named owner (e.g., Head of Security or CISO delegate) with unilateral authority to add categories immediately, and a lightweight two-person review (Security + Legal or Compliance) required to remove a category. Additions default to active; removals require justification. Review the full list at minimum quarterly.
+A more substantive defense comes from posture: AI-connected tools and agents must default to read-only access, as stated in [CVC-3.3](cvc-5-security-model.md#cvc-3-prompt-agent-and-action-safety). Write, modify, or send capabilities should be granted only through a documented decision under the least-agency standard. Any action that sends data externally, modifies records, changes entitlements, transfers funds, or produces material outcomes must require explicit human confirmation captured outside the AI chat surface, as outlined in [CVC-3.4](cvc-5-security-model.md#cvc-3-prompt-agent-and-action-safety).
+ The AI chat surface — this out-of-band requirement, [CVC-3.4](cvc-5-security-model.md#cvc-3-prompt-agent-and-action-safety), is what makes prompt injection a containment problem rather than an open vulnerability. If the confirmation lives inside the same chat surface as the attack, the attack can produce the confirmation.
 
-***
+A specific list of forbidden autonomous-action categories must be defined and enforced. At minimum, these include employment status changes, payment approvals, contract execution, access provisioning, and regulated communications. Each agent operates under its own non-human identity with scoped credentials and short-lived tokens; user-impersonation patterns for agent execution are forbidden, per [CVC-3.6](cvc-5-security-model.md#cvc-3-prompt-agent-and-action-safety). Decisions to grant agents new tools, broader scopes, or auto-approval permissions must apply the least-agency standard, justified, documented, and reviewable, as required by [CVC-3.7](cvc-5-security-model.md#cvc-3-prompt-agent-and-action-safety).
 
-### CVC-4. Output Validation and Human Accountability
+#### Where modes diverge
 
-**Objective:** Prevent plausible but incorrect AI output from becoming an authoritative business artifact or decision.
+Under `[Plug-in]`, where AI-gateway capabilities are available, prompt-injection detection, output policy enforcement, rate and budget limits, and egress allowlisting must be applied to business-critical workflows. Under `[Standalone]`, compensating controls take over: manual workflow checklists for Tier 3 actions, peer confirmation for high-risk outputs, and documented review records. This is [CVC-3.8](cvc-5-security-model.md#cvc-3-prompt-agent-and-action-safety).
 
-**Required controls:**
+#### A note on list governance
 
-- Classify AI outputs into at least three tiers: *reference-only*, *business input*, *action-enabling*.
-- Assign a named accountable reviewer for any output that influences decisions, records, controls, legal statements, or customer-facing commitments.
-- Require source validation for quantitative claims, legal interpretations, policy language, regulatory references, and operational procedures used beyond the draft stage.
-- Test or sandbox-validate AI-generated formulas, queries, scripts, and configurations before operational use.
-- Preserve provenance labeling on materially important AI-assisted outputs.
-- For agentic workflows, record the accountability chain end-to-end: prompts issued, retrieved context, model output, tool calls, human approvals, and final action.
+[CVC-3.9](cvc-5-security-model.md#cvc-3-prompt-agent-and-action-safety) requires a single named owner with unilateral authority to add categories, while removal requires a documented two-person review (Security plus Legal or Compliance). The asymmetry is intentional. In environments where new agent capabilities emerge faster than committees can convene, requiring symmetric approval for both additions and removals creates a bottleneck on protective additions, which is exactly the wrong direction. One-person add, two-person remove keeps the prohibition list current without sacrificing reversibility.
 
-`[Plug-in]` Provenance records and review attestations feed into enterprise audit and compliance workflows. Align retention periods to enterprise policy.
+### CVC-4: Output Validation and Human Accountability
 
-`[Standalone]` Define a minimum retention period for provenance records now, even informally. Six months is a reasonable default pending formal policy.
+This domain prevents plausible but incorrect AI output from becoming an authoritative business artifact or decision. It enforces the explicit-human-accountability principle.
 
-> **Enforcement model — select based on tier and organizational risk posture:**
->
-> | Option | Mechanism | When appropriate |
-> |---|---|---|
-> | Lightweight | Reviewer's name recorded in the document, ticket, or email thread containing the output. No system enforcement. | Tier 1–2 outputs; high-trust teams; limited tooling. Accept that this is detective, not preventive. |
-> | Enforced | A required sign-off field in the work management system (e.g., Jira, ServiceNow) blocks downstream action until a named reviewer approves. | Tier 3 outputs; regulated decisions; any workflow where an unsigned output could reach a customer, regulator, or financial system. |
->
-> Both are defensible. Enforced is required for Tier 3. Lightweight is acceptable for Tier 2 provided audit trails are retained. Document which model applies at which tier.
+#### Approach
 
-***
+AI outputs should be classified into at least three tiers — *reference-only*, *business input*, and *action-enabling* — and the classification must be visible to downstream consumers of the output ([CVC-4.1](cvc-5-security-model.md#cvc-4-output-validation-and-human-accountability)). Any AI-assisted output influencing decisions, records, controls, legal statements, or customer-facing commitments must have a named accountable reviewer recorded ([CVC-4.2](cvc-5-security-model.md#cvc-4-output-validation-and-human-accountability)).
+Source validation is required for quantitative claims, legal interpretations, policy language, regulatory references, and operational procedures used beyond the draft stage — [CVC-4.3](cvc-5-security-model.md#cvc-4-output-validation-and-human-accountability). Generated formulas, queries, scripts, and configurations must be sandbox- or test-validated before operational use ([CVC-4.4](cvc-5-security-model.md#cvc-4-output-validation-and-human-accountability)).
 
-### CVC-5. Governance, Audit, and Incident Readiness
+Provenance labeling for materially important AI-assisted outputs is required by [CVC-4.5](cvc-5-security-model.md#cvc-4-output-validation-and-human-accountability), and for agentic workflows, [CVC-4.6](cvc-5-security-model.md#cvc-4-output-validation-and-human-accountability) requires recording the end-to-end accountability chain: prompts issued, retrieved context, model output, tool calls, human approvals, and final action. This is the artifact auditors will ask for when something goes wrong, and it is much cheaper to build into the workflow at design time than to reconstruct after the fact.
 
-**Objective:** Ensure the framework operates within business governance and security operations rather than as a disconnected initiative.
+#### On enforcement
 
-**Required controls:**
+[CVC-4.7](cvc-5-security-model.md#cvc-4-output-validation-and-human-accountability) requires an enforcement model decision. A lightweight model is acceptable for Tier 2 outputs in high-trust teams, provided audit trails are retained. It is detective, not preventive, and should be understood as such. An enforced model — a required sign-off field in the work management system (Jira, ServiceNow, equivalent) that blocks downstream action until a named reviewer approves — is required for Tier 3. Any workflow where an unsigned output could reach a customer, regulator, or financial system needs the enforced model.
 
-- Maintain a written standard defining who may use AI tools, under what conditions, with what data classes, and with what registration and review obligations.
-- Assign responsibilities across security, IT, business leadership, data governance, privacy, and risk owners for tool approval, control operation, monitoring, and exception handling.
-- Require logging and administrative auditability for approved enterprise AI tools and integrated assistants where technically available; retain in line with applicable regulatory requirements.
-- Add AI-specific incident categories to the security incident-response process: prompt-driven data exposure, unsafe autonomous actions, agent goal hijacking, memory/retrieval poisoning, material business harm from hallucinated output.
-- Review registered use cases, exception decisions, incident trends, and shadow-AI findings at minimum quarterly for high-risk use cases.
+#### Where modes diverge
 
-`[Plug-in]` Feed artifacts upward into enterprise AI governance. Do not form a parallel reporting chain.
+Under `[Plug-in]`, provenance records and review attestations feed into enterprise audit and compliance workflows with aligned retention periods. Under `[Standalone]`, a minimum retention period must be defined now, even informally; six months is a reasonable default pending formal policy. [CVC-3.8](cvc-5-security-model.md#cvc-3-prompt-agent-and-action-safety).
 
-`[Standalone]` Assign a named individual — not a committee — as the single accountable owner of CVC-5 operations until enterprise governance absorbs this function. Report metrics to management on the same quarterly cycle.
+### CVC-5: Governance, Audit, and Incident Readiness
 
-> **Default posture: auto-demote to Tier 1.** Any AI tool that cannot produce or export logs sufficient to reconstruct prompts, retrieved context, tool invocations, and approvals is automatically limited to Tier 1 use only. Tier 2 or Tier 3 use of a non-logging tool requires a formal documented exception.
->
-> **Exception process:** Exceptions must include: (1) business justification for use beyond Tier 1, (2) compensating controls (e.g., manual workflow checklists, human confirmation records retained outside the tool, peer attestation), (3) named exception owner, (4) expiration date no greater than 90 days, and (5) documented acceptance of residual risk signed by a named business and security approver. Exceptions are reviewed at the next quarterly cycle and must be actively renewed to remain valid.
+This domain ensures the framework operates within business governance and security operations.
+ It is the domain that prevents CVC-5 from becoming the kind of standalone document that gets cited at audits and ignored everywhere else.
 
-***
+#### Approach
 
-## 8. Minimum Starting Baseline
+A written standard must define who may use AI tools, under what conditions, with what data classes, and with what registration and review obligations — [CVC-5.1](cvc-5-security-model.md#cvc-5-governance-audit-and-incident-readiness). Cross-functional responsibilities must be assigned across security, IT, business leadership, data governance, privacy, and risk owners, per [CVC-5.2](cvc-5-security-model.md#cvc-5-governance-audit-and-incident-readiness). Logging and administrative auditability must be in place for approved enterprise AI tools and integrated assistants where technically available, with retention aligned to regulatory requirements ([CVC-5.3](cvc-5-security-model.md#cvc-5-governance-audit-and-incident-readiness)).
 
-*`[Standalone]` path — for organizations with no existing AI governance.*
+AI-specific incident categories must be added to the security incident-response process — [CVC-5.4](cvc-5-security-model.md#cvc-5-governance-audit-and-incident-readiness) names at minimum: prompt-driven data exposure, unsafe autonomous actions, agent goal hijacking, memory or retrieval poisoning, and material business harm from hallucinated output. Cross-functional responsibilities must be assigned across security, IT, business leadership, data governance, privacy, and risk owners, per [CVC-5.2](cvc-5-security-model.md#cvc-5-governance-audit-and-incident-readiness).
 
-1. Publish a one-page acceptable-use standard for work-related AI, accessible to employees and AI assistants.
-2. Establish a lightweight registration process for recurring or material AI use cases.
-3. Approve a defined set of enterprise AI tools; prohibit sensitive-data use in unapproved tools with a clearly communicated alternative path.
-4. Define three risk tiers and a small set of review triggers tied to data class, autonomy, and external exposure.
-5. Require human review and confirmation for all Tier 3 outputs and actions, with confirmation occurring outside the AI assistant's interface.
-6. Add AI incident categories to the security incident-response process.
-7. Review the use-case inventory, exception register, and incident log quarterly; report metrics to management.
+#### On reporting
 
-***
+[CVC-5.6](cvc-5-security-model.md#cvc-5-governance-audit-and-incident-readiness) defines the reporting chain. Under `[Plug-in]`, artifacts feed upward into enterprise AI governance, and a parallel reporting chain must not be formed. Under `[Standalone]`, a single named individual must be the accountable owner of CVC-5 operations until enterprise governance absorbs the function.
+ Metrics still report to management on a quarterly cycle.
 
-## 9. Roles and Decision Rights
+#### On non-logging tools
 
-| Role | Primary responsibility | Mode |
-|---|---|---|
-| Business use-case owner | Registers use case; classifies tier; ensures local process compliance; accountable for outcomes. | Both |
-| Security / product security | Defines control standards; operates review triggers; publishes detection patterns; defines AI incident categories. | Both |
-| IT / enterprise platform | Approves enterprise AI tools; configures access, logging, and integration settings; operates AI gateways. | Both |
-| Data governance and privacy | Defines permitted AI data handling; sets review thresholds; establishes retention constraints. | Both |
-| Internal audit / compliance | Verifies evidence; reviews control operation; assesses exception management; maps to regulatory obligations. | Both |
-| AI governance body | Sets enterprise policy; arbitrates exceptions; receives metrics; revises CVC-5 scope over time. | `[Plug-in]` only |
+[CVC-5.7](cvc-5-security-model.md#cvc-5-governance-audit-and-incident-readiness) sets a default posture: any AI tool that cannot produce or export logs sufficient to reconstruct prompts, retrieved context, tool invocations, and approvals is automatically limited to Tier 1 use only.
+ Tier 2 or Tier 3 use of a non-logging tool requires a formal documented exception under [CVC-5.8](cvc-5-security-model.md#cvc-5-governance-audit-and-incident-readiness). That exception must include business justification, compensating controls, a named exception owner, an expiration date no greater than 90 days, and documented acceptance of residual risk signed by both a business and a security approver. Exceptions must be actively renewed at the next quarterly cycle; they do not roll over silently.
 
-***
+---
 
-## 10. Quick-Start Policy Language
+## Minimum Starting Baseline
 
-*These sample control statements are ready for direct use in internal policy documents. Adapt wording to your organization's style.*
+For organizations operating under `[Standalone]`, there is a defensible minimum starting position. It is not the full framework, and it should not be treated as the destination. It is a place to stand while the rest is built.
+
+It consists of seven moves, in roughly the order they should be taken.
+ First, publish a one-page acceptable-use standard for work-related AI, accessible both to employees and to AI assistants themselves (machine-readability matters more here than people expect). Second, establish a lightweight registration process for recurring or material AI use cases — see [CVC-1.2](cvc-5-security-model.md#cvc-1-discovery-and-registration). Third, approve a defined set of enterprise AI tools and prohibit sensitive-data use in unapproved tools, with a clearly communicated alternative path that the prohibition points to. Fourth, define the three risk tiers and a small set of review triggers tied to data class, autonomy, and external exposure. Fifth, require human review and confirmation for all Tier 3 outputs and actions, captured outside the AI assistant's interface — this is the [CVC-3.4](cvc-5-security-model.md#cvc-3-prompt-agent-and-action-safety) out-of-band requirement. Sixth, add AI incident categories to the existing security incident-response process per [CVC-5.4](cvc-5-security-model.md#cvc-5-governance-audit-and-incident-readiness). Seventh, review the use-case inventory, exception register, and incident log quarterly, and report metrics to management.
+
+This baseline is intentionally limited to seven requirements. An organization without governance cannot operate a control system with thirty-eight specific requirements; it can operate seven well, build the inventory, and then expand. The full catalog is the destination, not the starting line.
+
+---
+
+## Roles and Decision Rights
+
+The framework runs on a small number of roles. The business use-case owner registers the use case, classifies its tier, ensures local process compliance, and is accountable for outcomes. Security or product security defines control standards, operates review triggers, publishes detection patterns, and defines AI incident categories. IT or the enterprise platform function approves enterprise AI tools, configures access, logging, and integration settings, and operates AI gateways. Data governance and privacy defines permitted AI data handling, sets review thresholds, and establishes retention constraints. Internal audit and compliance verifies evidence, reviews control operation, assesses exception management, and maps the framework to regulatory obligations. Under `[Plug-in]`, an AI governance body sets enterprise policy, arbitrates exceptions, receives metrics, and revises CVC-5 scope over time.
+
+The detail of who-decides-what at each control is implicit in the normative model. These roles are not interchangeable, and CVC-5 cannot be operated entirely from within the security function. Attempting to do so produces the failure mode where security writes the standard, no one else owns its enforcement, and adoption flattens.
+
+---
+
+## Quick-Start Policy Language
+
+The statements below are ready for direct use in internal policy documents. They should be adapted to organizational style and reviewed by legal before publication, but they encode the framework's normative content in policy-shaped language.
 
 ### CVC-1 Discovery and Registration
 
-- All recurring work-related use of LLM tools, copilots, assistants, or agents that influence business outputs or actions must be registered with a designated human owner.
-- Unapproved AI tools cannot be used to process internal sensitive, confidential, or regulated data.
-- The organization must maintain a continuously updated AI-BOM covering models, prompts, retrieval sources, embeddings, agent identities, and connected tools.
+> All recurring work-related use of LLM tools, copilots, assistants, or agents must be registered with a designated human owner. Unapproved AI tools cannot process internal sensitive, confidential, or regulated data. The organization must maintain a continuously updated AI-BOM covering models, prompts, retrieval sources, embeddings, agent identities, and connected tools.
 
 ### CVC-2 Data Boundary Protection
 
-- High-sensitivity corporate data cannot be submitted to public or consumer AI tools without an approved, time-limited exception.
-- AI tools and agents connected to enterprise data must operate under least privilege against approved data sources only.
-- Vector stores and retrieval indexes must enforce access controls equivalent to those on the underlying source data.
+> High-sensitivity corporate data cannot be submitted to public or consumer AI tools without an approved exception. AI tools and agents connected to enterprise data must operate under least privilege against approved data sources only. Vector stores and retrieval indexes must enforce access controls equivalent to those on the underlying source data.
 
 ### CVC-3 Prompt, Agent, and Action Safety
 
-- AI systems processing untrusted external content cannot autonomously execute materially significant actions without explicit human confirmation captured outside the AI system's own interface.
-- Each agent operating against business systems must use a non-human identity with scoped credentials.
-- Forbidden autonomous-action categories must be defined and enforced: employment status changes, payment approvals, contract execution, access provisioning, regulated communications.
+> AI systems processing untrusted external content cannot autonomously execute significant actions without explicit human confirmation captured outside the AI system's interface. Each agent operating against business systems must use a non-human identity with scoped credentials. Forbidden autonomous-action categories must be defined and enforced: employment status changes, payment approvals, contract execution, access provisioning, regulated communications.
 
 ### CVC-4 Output Validation and Human Accountability
 
-- AI-assisted outputs used in materially significant decisions must be reviewed and approved by a named accountable human.
-- Quantitative, legal, policy, and operational outputs from AI must be validated against authoritative sources before operational use.
-- Provenance must be preserved for materially important AI-assisted outputs in a form recognizable to downstream reviewers and auditors.
+> AI-assisted outputs used in significant decisions must be reviewed and approved by a named accountable human. Quantitative, legal, policy, and operational outputs from AI must be validated against authoritative sources before operational use. Provenance must be preserved for important AI-assisted outputs in a recognizable form.
 
 ### CVC-5 Governance, Audit, and Incident Readiness
 
-- Material AI-related incidents must be reportable through the enterprise incident-response process.
-- Logs sufficient to reconstruct prompts, retrieved context, tool invocations, approvals, and resulting actions must be retained per applicable regulatory requirements and for at least six months.
-- Registered AI use cases must be reviewed at defined intervals for continued business need, control sufficiency, and exception status.
+> Material AI-related incidents must be reported through the enterprise incident-response process. Logs sufficient to reconstruct prompts, retrieved context, tool invocations, approvals, and resulting actions must be retained per applicable regulatory requirements and for at least six months. Registered AI use cases must be reviewed at defined intervals for continued business need, control sufficiency, and exception status.
 
-***
+---
 
-## 11. Metrics and Evidence
+## Metrics and Evidence
 
-**Operational metrics:**
+A framework that is not measured will not be maintained. The metrics CVC-5 cares about fall into three groups: operational, leading-indicator, and evidence.
 
-- Registered citizen vibe coder use cases by tier
-- Proportion of AI tools in active use that are approved vs. unapproved
-- Shadow-AI discoveries per quarter; time-to-registration for newly discovered use
-- Proportion of high-risk use cases with named owners and current review evidence
-- Count and severity of AI-related incidents, near misses, and policy exceptions
-- Proportion of high-risk workflows operating in approved enterprise environments
+The *operational* group tracks the framework's footprint and friction: registered citizen vibe coder use cases by tier, the proportion of AI tools in active use that are approved versus unapproved, shadow-AI discoveries per quarter and time-to-registration for newly discovered use, the proportion of high-risk use cases with named owners and current review evidence, the count and severity of AI-related incidents and near-misses and policy exceptions, and the proportion of high-risk workflows operating in approved enterprise environments.
 
-**Leading indicators:**
+The leading-indicator group is smaller and more diagnostic: the proportion of registered use cases with documented human-review evidence and the proportion of approved enterprise AI tools with logging actively retained. These two indicators tell you whether the framework is actually being operated or merely documented.
 
-- Proportion of registered use cases with documented human-review evidence in the last quarter
-- Proportion of approved enterprise AI tools with logging actively retained at the required level
+The evidence group supports audit and includes the use-case inventory and AI-BOM, tool-approval and exception registers, prompt and workflow templates, review attestations, and administrative logs and incident records.
 
-**Evidence artifacts:**
+Sixth, add AI incident categories to the existing security incident-response process per [CVC-5.4](cvc-5-security-model.md#cvc-5-governance-audit-and-incident-readiness).
 
-- Use-case inventory and AI-BOM record
-- Tool-approval and exception registers
-- Prompt and workflow templates for critical use cases
-- Review attestations and provenance records for material outputs
-- Administrative logs and incident records
+Under `[Plug-in]`, metrics feed into the existing enterprise AI governance reporting cadence. Under `[Standalone]`, a reporting model must be selected — a one-page management summary to the CISO or equivalent is the lowest-friction option and the most easily inheritable by future governance; a live risk dashboard in existing GRC or BI tooling works well where the appetite for trend visibility exists; and embedding AI metrics into the existing quarterly security report avoids the appearance that AI risk is disconnected from security operations. The quarterly report must include use-case inventory changes, exception register status, incident log summary, and shadow-AI discovery count.
 
-Where logging is technically unavailable from a given AI tool, the absence must be recorded as a control gap and factored into the use case's risk tier assignment.
+---
 
-> **`[Plug-in]`** Feed metrics into the existing enterprise AI governance reporting cadence. No separate reporting chain.
->
-> **`[Standalone]` — select a reporting model:**
->
-> | Option | Format | Recipient | When appropriate |
-> |---|---|---|---|
-> | Management summary | One-page written summary: use-case count by tier, shadow AI discoveries, incident count, open exceptions | CISO or equivalent; business unit heads | Most organizations; low friction; inheritable by future governance |
-> | Risk dashboard | Live or periodic dashboard in existing GRC or BI tooling showing metrics over time | Risk committee or equivalent | Organizations with existing risk tooling and appetite for trend visibility |
-> | Embedded in existing security reporting | AI metrics section added to existing quarterly security report | Existing security report audience | Where a separate AI report would create report fatigue or imply AI is disconnected from security |
->
-> Regardless of format, the quarterly report must include: use-case inventory changes, exception register status, incident log summary, and shadow-AI discovery count.
+## Core Principle
 
-***
+The deepest commitment in CVC-5 is straightforward: an AI tool used to shape material business work is part of the business control surface, and it belongs to a recognizable owner under recognizable controls. This commitment does not require that AI be slow or that prohibitions be heavy. It requires the opposite. Approved patterns must be easier than shadow patterns. Prohibitions must be specific, narrow, and accompanied by a sanctioned alternative. Accountability must rest where the work rests — with the human producing the output, not with the model that helped produce it.
 
-## Appendix A: Framework Cross-Walk
+Organizations that get this right will find that CVC-5 fades into the background of how AI is used at work. Organizations that get it wrong will discover that they are running a parallel and uncontrolled software supply chain through people who never thought of themselves as developers. The framework is built to make the first outcome easier than the second.
 
-| CVC-5 domain | OWASP LLM Top 10 (2025) | OWASP Agentic Top 10 (2026) | OWASP Citizen Dev Top 10 | NIST AI RMF / 600-1 | ISO/IEC 42001:2023 | EU AI Act |
-|---|---|---|---|---|---|---|
-| CVC-1 Discovery and Registration | LLM03 | ASI04 | CD-SEC-09 | Map 1, Map 2 | Clause 4; Annex A inventory | Article 11 |
-| CVC-2 Data Boundary Protection | LLM02, LLM08 | ASI06 | CD-SEC-04, CD-SEC-05 | Manage 2; Measure 2 | Clause 8 | Article 26(4) |
-| CVC-3 Prompt, Agent, and Action Safety | LLM01, LLM05, LLM06, LLM10 | ASI01, ASI02, ASI03, ASI05, ASI07 | CD-SEC-02, CD-SEC-03, CD-SEC-07, CD-SEC-08 | Manage 1, Manage 4 | Clause 8 | Article 26(2) |
-| CVC-4 Output Validation and Human Accountability | LLM05, LLM09 | ASI09, ASI10 | CD-SEC-01, CD-SEC-08 | Measure 2, Measure 3 | Clause 9 | Article 26(2); Article 50 |
-| CVC-5 Governance, Audit, and Incident Readiness | All | ASI08, ASI10 | CD-SEC-10 | Govern 1–4; Manage 4 | Clauses 5, 9, 10 | Article 26(5); Article 26(6) |
+---
 
-***
+## Cross-References to the Normative Model
 
-## Appendix B: Definitions
-
-| Term | Definition |
-|---|---|
-| Citizen Vibe Coder | A non-engineer whose use of LLMs, copilots, assistants, or agents materially shapes business outputs, decisions, or operational actions. |
-| Material work | Work output that influences business outcomes to a degree warranting management attention if an error or harm occurs. |
-| Least agency | Granting an agent the minimum autonomy, tools, and action scope required for its function; broader autonomy is earned, not default. |
-| Shadow AI | AI tools, assistants, agents, or workflows not registered, approved, or visible to security and governance functions. |
-| AI-BOM | Structured inventory of AI components in a system or workflow (models, prompts, datasets, embeddings, vector stores, agents, tools). Standard formats: SPDX 3.0, CycloneDX. |
-| Indirect prompt injection | Malicious instructions embedded in content an AI system retrieves or processes (documents, emails, web pages) rather than supplied by the user. |
-| Prompt firewall / AI gateway | Policy-enforcing component between AI users/applications and model providers; inspects prompts and responses, applies DLP, detects injection, enforces limits, and produces audit logs. |
-| MCP | Model Context Protocol — open protocol for connecting AI assistants to external tools, data sources, and services. |
+- [How to Use This Document](cvc-5-security-model.md#how-to-use-this-document)
+- [Section 1 — Purpose](cvc-5-security-model.md#1-purpose)
+- [Section 2 — Scope](cvc-5-security-model.md#2-scope)
+- [Section 3 — Design Principles](cvc-5-security-model.md#3-design-principles)
+- [Section 4 — Governance Positioning](cvc-5-security-model.md#4-governance-positioning)
+- [Section 5 — Threat Model](cvc-5-security-model.md#5-threat-model)
+- [Section 6 — Risk Tiering Model](cvc-5-security-model.md#6-risk-tiering-model)
+- [Section 7 — CVC-5 Control Catalog (Normative)](cvc-5-security-model.md#7-cvc-5-control-catalog-normative)
+  - [CVC-1 — Discovery and Registration](cvc-5-security-model.md#cvc-1-discovery-and-registration)
+  - [CVC-2 — Data Boundary Protection](cvc-5-security-model.md#cvc-2-data-boundary-protection)
+  - [CVC-3 — Prompt, Agent, and Action Safety](cvc-5-security-model.md#cvc-3-prompt-agent-and-action-safety)
+  - [CVC-4 — Output Validation and Human Accountability](cvc-5-security-model.md#cvc-4-output-validation-and-human-accountability)
+  - [CVC-5 — Governance, Audit, and Incident Readiness](cvc-5-security-model.md#cvc-5-governance-audit-and-incident-readiness)
+- [Appendix A — Framework Cross-Walk](cvc-5-security-model.md#appendix-a-framework-cross-walk)
+- [Appendix B — Definitions](cvc-5-security-model.md#appendix-b-definitions)
+- [Appendix C — Self-Assessment Checklist](cvc-5-security-model.md#appendix-c-self-assessment-checklist)

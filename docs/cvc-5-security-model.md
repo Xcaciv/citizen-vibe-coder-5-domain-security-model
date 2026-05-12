@@ -10,10 +10,12 @@
 
 This framework serves two audiences. Find your path before reading further.
 
-**Path A — Your organization already has an AI governance program:**
+### Path A — Your organization already has an AI governance program
+
 CVC-5 is a domain-specific control profile for business-led AI use. Start at [Section 4: Governance Positioning](#4-governance-positioning) to understand how CVC-5 plugs in, then go to [Section 6: The CVC-5 Control Model](#6-the-cvc-5-control-model) for control details. Ignore "Standalone" tags.
 
-**Path B — No formal AI governance exists yet:**
+### Path B — No formal AI governance exists yet
+
 CVC-5 is your initial control structure. Start at [Section 8: Minimum Starting Baseline](#8-minimum-starting-baseline) to get oriented, then return to [Section 6: The CVC-5 Control Model](#6-the-cvc-5-control-model). Pay attention to "Standalone" tags. Commit to refactoring CVC-5 into a plug-in profile once enterprise governance is established.
 
 > **Key terms used throughout this document:**
@@ -128,13 +130,11 @@ CVC-5 contributes to NIST AI RMF 1.0 Map, Measure, and Manage functions; maps to
 | Blind trust | Users over-trust AI output or generated actions without independent review |
 | Supply-chain / component risk | Compromised models, tools, or MCP servers introduce malicious behavior |
 
-**Key assumptions driving this framework:**
+### Key assumptions driving this framework
 
 - Prompt injection cannot be reliably prevented at the model layer. The framework treats it as a containment problem, not a prevention problem.
 - Business users have legitimate role-appropriate system access; AI tools extend what data is retrievable in practice even when access-control models are unchanged.
 - Visibility into AI activity is incomplete by default. Controls must function under partial visibility.
-
-***
 
 ## 6. Risk Tiering Model
 
@@ -169,85 +169,96 @@ Controls are tagged `[Plug-in]` where behavior differs when enterprise AI govern
 
 **Objective:** Convert unknown AI use into known AI use.
 
-**CVC-1.1 — AI tool classification register**
+#### CVC-1.1 — AI tool classification register
+
 - **Statement:** The organization MUST maintain an AI tool classification register with at least three statuses: *approved for sensitive work*, *approved for limited use*, *prohibited for corporate data*.
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** Shadow AI; Supply-chain / component risk.
 - **References:** OWASP CD-SEC-09; OWASP LLM03; NIST AI RMF Map 1; ISO/IEC 42001 Clause 4; EU AI Act Art. 11.
 
-**CVC-1.2 — Use-case registration and ownership**
+#### CVC-1.2 — Use-case registration and ownership
+
 - **Statement:** All recurring or material business use of LLMs, copilots, assistants, agents, custom GPTs, and MCP-connected workflows MUST be registered with a designated human owner.
 - **Applicability:** Required for Tier 2 and Tier 3. Recommended for Tier 1; registration becomes required once organization-defined volume thresholds are crossed (see [Section 6](#6-risk-tiering-model)).
 - **Primary risks:** Shadow AI; Auditability gap.
 - **References:** OWASP CD-SEC-09; OWASP ASI04; NIST AI RMF Map 1, Map 2; ISO/IEC 42001 Clause 4 (Annex A inventory); EU AI Act Art. 11.
 
-**CVC-1.3 — Use-case metadata schema**
+#### CVC-1.3 — Use-case metadata schema
+
 - **Statement:** Each registered use case MUST record at minimum: owning team, business purpose, data classes involved, connected tools and data sources, output type, whether automated actions occur, and the level of human review applied.
 - **Applicability:** Required for Tier 2 and Tier 3. Recommended for Tier 1 where registration applies.
 - **Primary risks:** Shadow AI; Auditability gap; Excessive agency / over-permissioned tools.
 - **References:** OWASP CD-SEC-09; OWASP ASI04, ASI08; NIST AI RMF Map 2; ISO/IEC 42001 Annex A; EU AI Act Art. 11.
 
-**CVC-1.4 — Active discovery mechanisms**
+#### CVC-1.4 — Active discovery mechanisms
+
 - **Statement:** Discovery of AI use MUST combine self-attestation, network and identity telemetry, periodic business-unit reviews, and reconciliation against the sanctioned-tool register. No single mechanism is sufficient.
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** Shadow AI; Auditability gap.
 - **References:** OWASP CD-SEC-09; OWASP ASI04; NIST AI RMF Map 1, Map 2.
 
-**CVC-1.5 — AI-BOM expression**
+#### CVC-1.5 — AI-BOM expression
+
 - **Statement:** Where automated discovery is technically feasible, the resulting use-case record SHOULD be expressed as an AI-BOM (SPDX 3.0 or CycloneDX) capturing models, datasets, prompts, system prompts, embeddings, vector stores, MCP servers, and tool integrations. For Tier 3 use cases, the AI-BOM MUST be produced where the underlying tools support it.
 - **Applicability:** Required for Tier 3 where supported. Recommended for Tier 2.
 - **Primary risks:** Supply-chain / component risk; Shadow AI; Memory and retrieval poisoning.
 - **References:** OWASP LLM03; OWASP ASI04; NIST AI RMF Map 2; ISO/IEC 42001 Annex A; EU AI Act Art. 11.
 
-**CVC-1.6 — Inventory authority**
+#### CVC-1.6 — Inventory authority
+
 - **Statement:** `[Plug-in]` The use-case inventory and AI-BOM MUST feed into the enterprise AI governance register; a parallel inventory MUST NOT be maintained. `[Standalone]` The use-case inventory MUST be designated the authoritative organizational record until enterprise governance is established, with a named maintainer assigned.
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** Auditability gap; Shadow AI.
 - **References:** NIST AI RMF Govern 1; ISO/IEC 42001 Clauses 4, 9; EU AI Act Art. 26(5).
 
-***
-
 ### CVC-2. Data Boundary Protection
 
 **Objective:** Prevent inappropriate disclosure of sensitive data into AI systems; constrain what AI systems can retrieve, expose, or carry across boundaries.
 
-**CVC-2.1 — AI-extended data classification**
+#### CVC-2.1 — AI-extended data classification
+
 - **Statement:** Enterprise data classification MUST be extended to AI usage with explicit rules covering prompts, file uploads, retrieval content, embedded indexes, copied context, and downstream responses.
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** Prompt/context data exposure; Improper output handling.
 - **References:** OWASP LLM02, LLM08; OWASP CD-SEC-04, CD-SEC-05; NIST AI RMF Manage 2; ISO/IEC 42001 Clause 8; EU AI Act Art. 26(4).
 
-**CVC-2.2 — Prohibition of high-sensitivity data in public AI tools**
+#### CVC-2.2 — Prohibition of high-sensitivity data in public AI tools
+
 - **Statement:** Submission of high-sensitivity data to public or consumer AI tools MUST be prohibited without a documented exception granted under [CVC-5.8](#cvc-5-governance-audit-and-incident-readiness).
 - **Applicability:** Required for Tier 2 and Tier 3. Recommended for Tier 1.
 - **Primary risks:** Prompt/context data exposure; Shadow AI.
 - **References:** OWASP LLM02; OWASP CD-SEC-04; NIST AI RMF Manage 2; ISO/IEC 42001 Clause 8; EU AI Act Art. 26(4).
 
-**CVC-2.3 — Approved enterprise environment for sensitive use**
+#### CVC-2.3 — Approved enterprise environment for sensitive use
+
 - **Statement:** Any use of internal sensitive, regulated, or business-confidential data MUST occur within an approved enterprise AI environment.
 - **Applicability:** Required for Tier 2 and Tier 3.
 - **Primary risks:** Prompt/context data exposure; Shadow AI.
 - **References:** OWASP LLM02; OWASP CD-SEC-04, CD-SEC-05; ISO/IEC 42001 Clause 8; EU AI Act Art. 26(4).
 
-**CVC-2.4 — Least-privilege connectors and short-lived credentials**
+#### CVC-2.4 — Least-privilege connectors and short-lived credentials
+
 - **Statement:** Connectors, plugins, and tools accessible to AI assistants MUST operate under least privilege. Short-lived credentials MUST be used where the underlying systems support them.
 - **Applicability:** Required for Tier 2 and Tier 3. Recommended for Tier 1.
 - **Primary risks:** Excessive agency / over-permissioned tools; Identity confusion / confused-deputy.
 - **References:** OWASP ASI06; OWASP CD-SEC-05; NIST AI RMF Manage 2; ISO/IEC 42001 Clause 8.
 
-**CVC-2.5 — Detective controls for leakage patterns**
+#### CVC-2.5 — Detective controls for leakage patterns
+
 - **Statement:** Where technically feasible, preventive or detective controls SHOULD be deployed for obvious leakage patterns (secrets, PCI data, PHI). Absence MUST be recorded as a control gap in the use case's record under [CVC-1.3](#cvc-1-discovery-and-registration).
 - **Applicability:** Required for Tier 3. Recommended for Tier 2.
 - **Primary risks:** Prompt/context data exposure.
 - **References:** OWASP LLM02; OWASP CD-SEC-04; NIST AI RMF Measure 2.
 
-**CVC-2.6 — Access controls on retrieval indexes and vector stores**
+#### CVC-2.6 — Access controls on retrieval indexes and vector stores
+
 - **Statement:** Vector stores and retrieval indexes MUST enforce access controls equivalent to those on the underlying source data.
 - **Applicability:** Required for Tier 2 and Tier 3.
 - **Primary risks:** Prompt/context data exposure; Memory and retrieval poisoning.
 - **References:** OWASP LLM02, LLM08; OWASP CD-SEC-04; ISO/IEC 42001 Clause 8.
 
-**CVC-2.7 — Category-based prohibition with governed allowlist**
+#### CVC-2.7 — Category-based prohibition with governed allowlist
+
 - **Statement:** Prohibitions MUST be expressed by category (e.g., "public consumer AI tools," "personal AI accounts not provisioned by IT") rather than by named product. A separately governed allowlist of approved tools MUST exist with an explicitly assigned owner and a documented review cadence.
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** Shadow AI; Supply-chain / component risk.
@@ -255,67 +266,75 @@ Controls are tagged `[Plug-in]` where behavior differs when enterprise AI govern
 
 > **Guidance — Why split prohibition from allowlist.** The category-level prohibition is a stable policy artifact and changes infrequently. The allowlist is an operational artifact that turns over as the market evolves. Separating them keeps policy churn low and shortens the path to approving new tools without rewriting prohibitions.
 
-**CVC-2.8 — Minimum data-classification scheme (Standalone prerequisite)**
+#### CVC-2.8 — Minimum data-classification scheme (Standalone prerequisite)
+
 - **Statement:** `[Standalone]` Where no enterprise data classification scheme exists, a minimum three-tier classification (public / internal / restricted) MUST be established as a prerequisite to applying CVC-2.1 through CVC-2.6.
 - **Applicability:** Required at the organizational level when operating in Standalone mode.
 - **Primary risks:** Prompt/context data exposure; Auditability gap.
 - **References:** ISO/IEC 42001 Clause 8; NIST AI RMF Manage 2.
 
-***
-
 ### CVC-3. Prompt, Agent, and Action Safety
 
 **Objective:** Prevent AI systems from following malicious instructions, exceeding authority, or performing unsafe actions.
 
-**CVC-3.1 — Treat external content as untrusted**
+#### CVC-3.1 — Treat external content as untrusted
+
 - **Statement:** External content processed by AI systems — including emails, attachments, web pages, documents, transcripts, and meeting recordings — MUST be treated as untrusted input.
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** Prompt injection; Memory and retrieval poisoning.
 - **References:** OWASP LLM01; OWASP ASI01; OWASP CD-SEC-02; NIST AI RMF Manage 1; ISO/IEC 42001 Clause 8.
 
-**CVC-3.2 — Instruction/content separation in business-critical workflows**
+#### CVC-3.2 — Instruction/content separation in business-critical workflows
+
 - **Statement:** Business-critical workflows MUST use prompt and system-instruction patterns that separate untrusted content from operating instructions and that refuse to follow embedded directives without explicit user confirmation.
 - **Applicability:** Required for Tier 3. Recommended for Tier 2.
 - **Primary risks:** Prompt injection; Unsafe autonomous actions.
 - **References:** OWASP LLM01, LLM05; OWASP ASI01, ASI02; OWASP CD-SEC-02; NIST AI RMF Manage 1.
 
-**CVC-3.3 — Default read-only access for AI tools and agents**
+#### CVC-3.3 — Default read-only access for AI tools and agents
+
 - **Statement:** AI-connected tools and agents MUST default to read-only access. Write, modify, or send capabilities MAY be granted only through a documented decision under the least-agency standard in [CVC-3.7](#cvc-3-prompt-agent-and-action-safety).
 - **Applicability:** Required for Tier 2 and Tier 3.
 - **Primary risks:** Unsafe autonomous actions; Excessive agency / over-permissioned tools.
 - **References:** OWASP ASI02, ASI03; OWASP LLM06; OWASP CD-SEC-03, CD-SEC-07; NIST AI RMF Manage 4.
 
-**CVC-3.4 — Out-of-band human confirmation for material actions**
+#### CVC-3.4 — Out-of-band human confirmation for material actions
+
 - **Statement:** Any action that sends data externally, modifies records, changes entitlements, transfers funds, or produces material outcomes MUST require explicit human confirmation captured outside the AI chat surface.
 - **Applicability:** Required for Tier 3. Recommended for Tier 2.
 - **Primary risks:** Unsafe autonomous actions; Blind trust; Identity confusion / confused-deputy.
 - **References:** OWASP ASI02, ASI07; OWASP LLM06; OWASP CD-SEC-01, CD-SEC-03; NIST AI RMF Manage 4; EU AI Act Art. 26(2).
 
-**CVC-3.5 — Forbidden autonomous-action categories**
+#### CVC-3.5 — Forbidden autonomous-action categories
+
 - **Statement:** The organization MUST define and enforce a list of forbidden autonomous-action categories, including at minimum: employment status changes, payment approvals, contract execution, access provisioning, and regulated communications.
 - **Applicability:** Required at the organizational level for all tiers. Enforced for Tier 2 and Tier 3 use cases.
 - **Primary risks:** Unsafe autonomous actions; Excessive agency / over-permissioned tools.
 - **References:** OWASP ASI02, ASI03, ASI05; OWASP LLM06; OWASP CD-SEC-03; NIST AI RMF Manage 4; EU AI Act Art. 26(2).
 
-**CVC-3.6 — Per-agent non-human identity with scoped credentials**
+#### CVC-3.6 — Per-agent non-human identity with scoped credentials
+
 - **Statement:** Each agent MUST operate under its own non-human identity with scoped credentials and short-lived tokens. User-impersonation patterns for agent execution MUST NOT be used.
 - **Applicability:** Required for Tier 2 and Tier 3.
 - **Primary risks:** Identity confusion / confused-deputy; Excessive agency / over-permissioned tools.
 - **References:** OWASP ASI03, ASI07; OWASP CD-SEC-02; NIST AI RMF Manage 4.
 
-**CVC-3.7 — Least agency for capability expansion**
+#### CVC-3.7 — Least agency for capability expansion
+
 - **Statement:** Decisions granting an agent new tools, broader scopes, or auto-approval permissions MUST apply the least-agency standard: the expansion MUST be justified, documented, and reviewable.
 - **Applicability:** Required for Tier 2 and Tier 3.
 - **Primary risks:** Excessive agency / over-permissioned tools; Unsafe autonomous actions.
 - **References:** OWASP ASI02, ASI03; OWASP LLM06; OWASP CD-SEC-07; NIST AI RMF Manage 4.
 
-**CVC-3.8 — AI-gateway or compensating controls for business-critical workflows**
+#### CVC-3.8 — AI-gateway or compensating controls for business-critical workflows
+
 - **Statement:** `[Plug-in]` Where AI governance or AI-gateway capabilities are available, prompt-injection detection, output policy enforcement, rate and budget limits, and egress allowlisting MUST be applied to business-critical workflows. `[Standalone]` In the absence of an AI gateway, compensating controls MUST be applied: manual workflow checklists for Tier 3 actions, peer confirmation for high-risk outputs, and documented review records.
 - **Applicability:** Required for Tier 3. Recommended for Tier 2.
 - **Primary risks:** Prompt injection; Unsafe autonomous actions; Improper output handling.
 - **References:** OWASP LLM01, LLM05, LLM10; OWASP ASI01, ASI02, ASI05; NIST AI RMF Manage 1, Manage 4.
 
-**CVC-3.9 — Forbidden-action list ownership and change control**
+#### CVC-3.9 — Forbidden-action list ownership and change control
+
 - **Statement:** The forbidden autonomous-action categories list MUST have a single named owner with unilateral authority to add categories. Removal of a category MUST require a documented two-person review (Security plus Legal or Compliance). The full list MUST be reviewed at least quarterly. Additions take effect immediately; removals require justification recorded against the use-case inventory.
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** Unsafe autonomous actions; Auditability gap.
@@ -323,49 +342,54 @@ Controls are tagged `[Plug-in]` where behavior differs when enterprise AI govern
 
 > **Guidance — Why an asymmetric change-control.** In environments where new agent capabilities emerge faster than committees can convene, this asymmetry (one-person add, two-person remove) keeps the prohibition list current without creating a bottleneck on protective additions.
 
-***
-
 ### CVC-4. Output Validation and Human Accountability
 
 **Objective:** Prevent plausible but incorrect AI output from becoming an authoritative business artifact or decision.
 
-**CVC-4.1 — Output classification tiers**
+#### CVC-4.1 — Output classification tiers
+
 - **Statement:** AI outputs MUST be classified into at least three tiers: *reference-only*, *business input*, *action-enabling*. Classification MUST be visible to downstream consumers of the output.
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** Blind trust; Output reliability / hallucination; Improper output handling.
 - **References:** OWASP LLM05, LLM09; OWASP ASI09, ASI10; OWASP CD-SEC-01, CD-SEC-08; NIST AI RMF Measure 2.
 
-**CVC-4.2 — Named accountable reviewer**
+#### CVC-4.2 — Named accountable reviewer
+
 - **Statement:** Any AI-assisted output that influences decisions, records, controls, legal statements, or customer-facing commitments MUST have a named accountable reviewer recorded.
 - **Applicability:** Required for Tier 2 and Tier 3. Recommended for Tier 1.
 - **Primary risks:** Blind trust; Output reliability / hallucination; Auditability gap.
 - **References:** OWASP LLM09; OWASP ASI10; OWASP CD-SEC-01; NIST AI RMF Measure 3; ISO/IEC 42001 Clause 9; EU AI Act Art. 26(2), Art. 50.
 
-**CVC-4.3 — Source validation for material claims**
+#### CVC-4.3 — Source validation for material claims
+
 - **Statement:** Source validation MUST be performed for quantitative claims, legal interpretations, policy language, regulatory references, and operational procedures used beyond the draft stage.
 - **Applicability:** Required for Tier 3. Recommended for Tier 2.
 - **Primary risks:** Output reliability / hallucination; Blind trust.
 - **References:** OWASP LLM09; OWASP CD-SEC-01; NIST AI RMF Measure 2.
 
-**CVC-4.4 — Sandbox or test validation of generated artifacts**
+#### CVC-4.4 — Sandbox or test validation of generated artifacts
+
 - **Statement:** AI-generated formulas, queries, scripts, and configurations MUST be tested or sandbox-validated before operational use.
 - **Applicability:** Required for Tier 2 and Tier 3.
 - **Primary risks:** Output reliability / hallucination; Improper output handling; Unsafe autonomous actions.
 - **References:** OWASP LLM05; OWASP ASI09; OWASP CD-SEC-08; NIST AI RMF Measure 2.
 
-**CVC-4.5 — Provenance labeling for material outputs**
+#### CVC-4.5 — Provenance labeling for material outputs
+
 - **Statement:** Provenance labeling MUST be preserved on materially important AI-assisted outputs in a form recognizable to downstream reviewers and auditors.
 - **Applicability:** Required for Tier 2 and Tier 3.
 - **Primary risks:** Auditability gap; Blind trust.
 - **References:** OWASP ASI10; OWASP CD-SEC-01; NIST AI RMF Measure 3; ISO/IEC 42001 Clause 9; EU AI Act Art. 50.
 
-**CVC-4.6 — End-to-end accountability chain for agentic workflows**
+#### CVC-4.6 — End-to-end accountability chain for agentic workflows
+
 - **Statement:** Agentic workflows MUST record an end-to-end accountability chain comprising: prompts issued, retrieved context, model output, tool calls, human approvals, and final action.
 - **Applicability:** Required for Tier 3. Recommended for Tier 2.
 - **Primary risks:** Auditability gap; Unsafe autonomous actions; Identity confusion / confused-deputy.
 - **References:** OWASP ASI08, ASI10; OWASP LLM05, LLM09; NIST AI RMF Measure 2, Measure 3; ISO/IEC 42001 Clause 9.
 
-**CVC-4.7 — Enforcement model selection**
+#### CVC-4.7 — Enforcement model selection
+
 - **Statement:** For Tier 3 outputs, an *enforced* review model MUST be used: a sign-off field in the work management system blocks downstream action until a named reviewer approves. For Tier 2, either *enforced* or *lightweight* review (reviewer name recorded in the document, ticket, or thread) MAY be used. The model applied at each tier MUST be documented.
 - **Applicability:** Required for Tier 2 and Tier 3.
 - **Primary risks:** Blind trust; Auditability gap.
@@ -378,67 +402,72 @@ Controls are tagged `[Plug-in]` where behavior differs when enterprise AI govern
 > | Lightweight | Reviewer's name recorded in the document, ticket, or email thread containing the output. No system enforcement. | Tier 2 outputs in high-trust teams with limited tooling. Detective, not preventive. |
 > | Enforced | A required sign-off field in the work management system (e.g., Jira, ServiceNow) blocks downstream action until a named reviewer approves. | Tier 3 outputs; regulated decisions; any workflow where an unsigned output could reach a customer, regulator, or financial system. |
 
-**CVC-4.8 — Minimum provenance retention**
+#### CVC-4.8 — Minimum provenance retention
+
 - **Statement:** `[Plug-in]` Provenance records and review attestations MUST be retained per enterprise audit and compliance policy. `[Standalone]` A minimum provenance retention period MUST be defined; six months is a reasonable default pending formal policy.
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** Auditability gap.
 - **References:** ISO/IEC 42001 Clause 9; NIST AI RMF Measure 3; EU AI Act Art. 26(6).
 
-***
-
 ### CVC-5. Governance, Audit, and Incident Readiness
 
 **Objective:** Ensure the framework operates within business governance and security operations rather than as a disconnected initiative.
 
-**CVC-5.1 — Written AI use standard**
+#### CVC-5.1 — Written AI use standard
+
 - **Statement:** A written standard MUST define who may use AI tools, under what conditions, with what data classes, and with what registration and review obligations.
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** Shadow AI; Auditability gap.
 - **References:** OWASP CD-SEC-10; NIST AI RMF Govern 1; ISO/IEC 42001 Clause 5; EU AI Act Art. 26(5).
 
-**CVC-5.2 — Assigned cross-functional responsibilities**
+#### CVC-5.2 — Assigned cross-functional responsibilities
+
 - **Statement:** Responsibilities for tool approval, control operation, monitoring, and exception handling MUST be assigned across security, IT, business leadership, data governance, privacy, and risk owners.
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** Auditability gap; Shadow AI.
 - **References:** NIST AI RMF Govern 2; ISO/IEC 42001 Clauses 5, 9.
 
-**CVC-5.3 — Logging and administrative auditability**
+#### CVC-5.3 — Logging and administrative auditability
+
 - **Statement:** Logging and administrative auditability MUST be enabled for approved enterprise AI tools and integrated assistants where technically available. Logs MUST be retained in line with applicable regulatory requirements.
 - **Applicability:** Required for Tier 2 and Tier 3. Recommended for Tier 1.
 - **Primary risks:** Auditability gap.
 - **References:** OWASP ASI08, ASI10; NIST AI RMF Govern 3; ISO/IEC 42001 Clause 9; EU AI Act Art. 26(6).
 
-**CVC-5.4 — AI-specific incident categories**
+#### CVC-5.4 — AI-specific incident categories
+
 - **Statement:** The security incident-response process MUST include AI-specific incident categories covering at minimum: prompt-driven data exposure, unsafe autonomous actions, agent goal hijacking, memory or retrieval poisoning, and material business harm from hallucinated output.
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** All threat-model entries (incident triage and reporting layer).
 - **References:** OWASP LLM Top 10 (all); OWASP ASI08, ASI10; OWASP CD-SEC-10; NIST AI RMF Manage 4; ISO/IEC 42001 Clauses 9, 10; EU AI Act Art. 26(5).
 
-**CVC-5.5 — Periodic review of use cases, exceptions, and shadow-AI findings**
+#### CVC-5.5 — Periodic review of use cases, exceptions, and shadow-AI findings
+
 - **Statement:** Registered use cases, exception decisions, incident trends, and shadow-AI findings MUST be reviewed at least quarterly for high-risk use cases.
 - **Applicability:** Required for Tier 2 and Tier 3.
 - **Primary risks:** Shadow AI; Auditability gap.
 - **References:** OWASP CD-SEC-10; NIST AI RMF Govern 4, Manage 4; ISO/IEC 42001 Clauses 9, 10.
 
-**CVC-5.6 — Reporting chain**
+#### CVC-5.6 — Reporting chain
+
 - **Statement:** `[Plug-in]` Metrics and artifacts MUST feed into the enterprise AI governance reporting cadence; a parallel reporting chain MUST NOT be formed. `[Standalone]` A named individual — not a committee — MUST be assigned as single accountable owner of CVC-5 operations until enterprise governance absorbs the function, and metrics MUST be reported to management at least quarterly.
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** Auditability gap.
 - **References:** NIST AI RMF Govern 1; ISO/IEC 42001 Clauses 5, 9; EU AI Act Art. 26(5).
 
-**CVC-5.7 — Default posture for non-logging tools**
+#### CVC-5.7 — Default posture for non-logging tools
+
 - **Statement:** Any AI tool that cannot produce or export logs sufficient to reconstruct prompts, retrieved context, tool invocations, and approvals MUST be limited to Tier 1 use only. Tier 2 or Tier 3 use of a non-logging tool MUST require a formal documented exception under [CVC-5.8](#cvc-5-governance-audit-and-incident-readiness).
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** Auditability gap; Shadow AI.
 - **References:** OWASP ASI08; NIST AI RMF Measure 3; ISO/IEC 42001 Clause 9; EU AI Act Art. 26(6).
 
-**CVC-5.8 — Exception process requirements**
+#### CVC-5.8 — Exception process requirements
+
 - **Statement:** Exceptions to CVC-5 controls MUST include all of the following: (1) business justification for use beyond Tier 1; (2) compensating controls (e.g., manual workflow checklists, human confirmation records retained outside the tool, peer attestation); (3) named exception owner; (4) expiration date no greater than 90 days; (5) documented acceptance of residual risk signed by a named business and security approver. Exceptions MUST be reviewed at the next quarterly cycle and MUST be actively renewed to remain valid.
 - **Applicability:** Required at the organizational level for all tiers.
 - **Primary risks:** Auditability gap; Shadow AI; varies by exception scope.
 - **References:** NIST AI RMF Govern 4, Manage 4; ISO/IEC 42001 Clause 10; EU AI Act Art. 26(5).
-
-***
 
 ## 8. Minimum Starting Baseline
 
@@ -464,8 +493,6 @@ Controls are tagged `[Plug-in]` where behavior differs when enterprise AI govern
 | Data governance and privacy | Defines permitted AI data handling; sets review thresholds; establishes retention constraints. | Both |
 | Internal audit / compliance | Verifies evidence; reviews control operation; assesses exception management; maps to regulatory obligations. | Both |
 | AI governance body | Sets enterprise policy; arbitrates exceptions; receives metrics; revises CVC-5 scope over time. | `[Plug-in]` only |
-
-***
 
 ## 10. Quick-Start Policy Language
 
@@ -501,11 +528,9 @@ Controls are tagged `[Plug-in]` where behavior differs when enterprise AI govern
 - Logs sufficient to reconstruct prompts, retrieved context, tool invocations, approvals, and resulting actions must be retained per applicable regulatory requirements and for at least six months.
 - Registered AI use cases must be reviewed at defined intervals for continued business need, control sufficiency, and exception status.
 
-***
-
 ## 11. Metrics and Evidence
 
-**Operational metrics:**
+### Operational metrics
 
 - Registered citizen vibe coder use cases by tier
 - Proportion of AI tools in active use that are approved vs. unapproved
@@ -514,12 +539,12 @@ Controls are tagged `[Plug-in]` where behavior differs when enterprise AI govern
 - Count and severity of AI-related incidents, near misses, and policy exceptions
 - Proportion of high-risk workflows operating in approved enterprise environments
 
-**Leading indicators:**
+### Leading indicators
 
 - Proportion of registered use cases with documented human-review evidence in the last quarter
 - Proportion of approved enterprise AI tools with logging actively retained at the required level
 
-**Evidence artifacts:**
+### Evidence artifacts
 
 - Use-case inventory and AI-BOM record
 - Tool-approval and exception registers
@@ -541,8 +566,6 @@ Where logging is technically unavailable from a given AI tool, the absence must 
 >
 > Regardless of format, the quarterly report must include: use-case inventory changes, exception register status, incident log summary, and shadow-AI discovery count.
 
-***
-
 ## Appendix A: Framework Cross-Walk
 
 | CVC-5 domain | OWASP LLM Top 10 (2025) | OWASP Agentic Top 10 (2026) | OWASP Citizen Dev Top 10 | NIST AI RMF / 600-1 | ISO/IEC 42001:2023 | EU AI Act |
@@ -552,8 +575,6 @@ Where logging is technically unavailable from a given AI tool, the absence must 
 | CVC-3 Prompt, Agent, and Action Safety | LLM01, LLM05, LLM06, LLM10 | ASI01, ASI02, ASI03, ASI05, ASI07 | CD-SEC-02, CD-SEC-03, CD-SEC-07, CD-SEC-08 | Manage 1, Manage 4 | Clause 8 | Article 26(2) |
 | CVC-4 Output Validation and Human Accountability | LLM05, LLM09 | ASI09, ASI10 | CD-SEC-01, CD-SEC-08 | Measure 2, Measure 3 | Clause 9 | Article 26(2); Article 50 |
 | CVC-5 Governance, Audit, and Incident Readiness | All | ASI08, ASI10 | CD-SEC-10 | Govern 1–4; Manage 4 | Clauses 5, 9, 10 | Article 26(5); Article 26(6) |
-
-***
 
 ## Appendix B: Definitions
 
@@ -567,8 +588,6 @@ Where logging is technically unavailable from a given AI tool, the absence must 
 | Indirect prompt injection | Malicious instructions embedded in content an AI system retrieves or processes (documents, emails, web pages) rather than supplied by the user. |
 | Prompt firewall / AI gateway | Policy-enforcing component between AI users/applications and model providers; inspects prompts and responses, applies DLP, detects injection, enforces limits, and produces audit logs. |
 | MCP | Model Context Protocol — open protocol for connecting AI assistants to external tools, data sources, and services. |
-
-***
 
 ## Appendix C: Self-Assessment Checklist
 
