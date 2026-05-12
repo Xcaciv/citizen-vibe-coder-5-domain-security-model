@@ -2,13 +2,28 @@
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY%20SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
+**Project type:** OWASP documentation / control standard (proposed)
+
 ## Overview
 
 This repository develops **CVC-5**, a five-domain security control model for **Citizen Vibe Coders** — non-engineers whose use of LLMs, copilots, assistants, or agents materially shapes business outputs, decisions, or operational actions.
 
 CVC-5 operates either as a **standalone baseline** for organizations without formal AI governance, or as a **domain-specific control profile** within an existing enterprise AI governance program. The framework is technology- and vendor-neutral, scales control strength to business impact through a risk-tiering model, and keeps human accountability explicit at every step.
 
-The working draft of the framework is [`docs/cvc-5-security-model.md`](docs/cvc-5-security-model.md).
+The working draft of the framework is [`docs/cvc-5-security-model.md`](docs/cvc-5-security-model.md). It contains a normative control catalog ([Section 7](docs/cvc-5-security-model.md#7-cvc-5-control-catalog-normative)) with stable IDs, RFC 2119 wording, and tier-by-tier applicability, plus a self-assessment checklist ([Appendix C](docs/cvc-5-security-model.md#appendix-c-self-assessment-checklist)).
+
+## Standard Structure
+
+- **Part 1 — Normative core.** Sections 1–7 of the framework document: Purpose, Scope, Design Principles, Governance Positioning, Threat Model, Risk Tiering Model, and the CVC-5 Control Catalog (Section 7) with stable control IDs in the pattern `CVC-<domain>.<n>`.
+- **Part 2 — Operational integration.** Sections 8–11: Minimum Starting Baseline, Roles and Decision Rights, Quick-Start Policy Language, and Metrics and Evidence. Normative where they prescribe behavior; supporting elsewhere.
+- **Appendices A–C — Non-normative guidance.** Framework cross-walks, definitions, and the self-assessment checklist derived from the catalog.
+- **How to use it.** Read the introduction and pick your governance path (Plug-in or Standalone). Set your Tier 1 threshold ([Section 6](docs/cvc-5-security-model.md#6-risk-tiering-model)). Adopt controls from [Section 7](docs/cvc-5-security-model.md#7-cvc-5-control-catalog-normative) at the tier(s) you operate. Self-assess against [Appendix C](docs/cvc-5-security-model.md#appendix-c-self-assessment-checklist).
+- **RFC 2119 keywords.** MUST, SHOULD, and MAY in the framework document are interpreted per RFC 2119; recommendations are tier-scoped in each control's *Applicability* line.
+
+## Project Leads
+
+- **Project Lead:** Alton Crossley, Project Lead, @Xcaciv
+- **Co-Lead / Maintainer:** *TBD*
 
 ## The five domains
 
@@ -76,10 +91,10 @@ The roadmap below tracks the working draft toward a stable 1.0 release and the e
 
 ### Toward v1.0
 
-- Complete control descriptions and acceptance criteria across all five domains.
-- Finalize the risk-tiering model and the thresholds that trigger each tier.
+- Harden the [Section 7 control catalog](docs/cvc-5-security-model.md#7-cvc-5-control-catalog-normative): tighten RFC 2119 wording, close any remaining principle-or-threat gaps, and lock the control IDs.
+- Finalize the risk-tiering model and the organization-defined thresholds that trigger each tier.
 - Stabilize Appendix A cross-walks (NIST AI RMF, ISO/IEC 42001, EU AI Act, OWASP LLM/Agentic/Citizen Dev).
-- External review by security, governance, audit, and citizen-developer practitioners.
+- External review of the catalog and the [Appendix C self-assessment checklist](docs/cvc-5-security-model.md#appendix-c-self-assessment-checklist) by security, governance, audit, and citizen-developer practitioners.
 - Resolve open editorial inconsistencies and tighten persona examples and worked scenarios.
 
 ### Post-1.0 enablement
@@ -87,7 +102,7 @@ The roadmap below tracks the working draft toward a stable 1.0 release and the e
 - Implementation guide and quick-start templates for `[Standalone]` adopters.
 - Integration notes and reference artifacts for `[Plug-in]` adoption alongside existing enterprise AI governance.
 - Reference policies, registration forms, and intake templates supporting CVC-1.
-- Lightweight self-assessment checklist tied to the five domains and risk tiers.
+- Tooling-friendly machine-readable export of the control catalog and the self-assessment checklist.
 
 ### Not planned
 
